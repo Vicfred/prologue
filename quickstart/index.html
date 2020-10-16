@@ -228,14 +228,49 @@
       
         <li class="md-nav__item">
   <a href="#hello-world" class="md-nav__link">
-    hello world
+    Hello World
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#command-line-tool" class="md-nav__link">
-    Command line tool
+    Command Line Tool
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debug-mode" class="md-nav__link">
+    Debug Mode
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#url-building" class="md-nav__link">
+    URL Building
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#static-files" class="md-nav__link">
+    Static Files
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redirect" class="md-nav__link">
+    Redirect
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cookies" class="md-nav__link">
+    Cookies
   </a>
   
 </li>
@@ -488,14 +523,49 @@
       
         <li class="md-nav__item">
   <a href="#hello-world" class="md-nav__link">
-    hello world
+    Hello World
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#command-line-tool" class="md-nav__link">
-    Command line tool
+    Command Line Tool
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#debug-mode" class="md-nav__link">
+    Debug Mode
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#url-building" class="md-nav__link">
+    URL Building
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#static-files" class="md-nav__link">
+    Static Files
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#redirect" class="md-nav__link">
+    Redirect
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cookies" class="md-nav__link">
+    Cookies
   </a>
   
 </li>
@@ -514,7 +584,7 @@
                 
                 
                 <h1 id="quick-start">Quick Start</h1>
-<h2 id="hello-world">hello world</h2>
+<h2 id="hello-world">Hello World</h2>
 <p>Now Let's begin a quick tour of <code>Prologue</code>.</p>
 <div class="codehilite"><pre><span></span><code><span class="c"># app.nim</span>
 <span class="kn">import</span> <span class="n">prologue</span>
@@ -536,7 +606,7 @@ example, we use default settings. You can specify parameters of <code>newSetting
 <p>Next add route to our application. <code>"/"</code> is the URL we can visit in the web browser. <code>Hello</code> is the handler which processes the request from the web browser and sends <code>"&lt;h1&gt;Hello, Prologue!&lt;/h1&gt;"</code> to the web browser.</p>
 <p>Finally use <code>nim c -r app.nim</code> to run our application. Visit <code>localhost:8080</code>, <code>Hello, Prologue!</code> is displayed in your browser.</p>
 <p><img alt="hello world" src="../assets/quickstart/hello.jpg" /></p>
-<h2 id="command-line-tool">Command line tool</h2>
+<h2 id="command-line-tool">Command Line Tool</h2>
 <p><code>logue</code> can be used to initialize your
 program.</p>
 <p>Make sure <code>~/.nimble/bin</code> is in your environment variables.</p>
@@ -550,6 +620,64 @@ structure like this:</p>
 </code></pre></div>
 
 <p>You must switch to <code>/.../helloworld</code> directory to run <code>app.nim</code>. For example, you can type <code>logue run</code> and open the browser to visit the URL.</p>
+<h2 id="debug-mode">Debug Mode</h2>
+<p>There are many ways to enable debug mode. If using default settings, debug mode is enabled too. You can also enable them on your own.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">let</span> <span class="n">settings</span> <span class="o">=</span> <span class="n">newSettings</span><span class="p">(</span><span class="n">debug</span> <span class="o">=</span> <span class="kp">true</span><span class="p">)</span>
+</code></pre></div>
+
+<p>If you use JSON config file:</p>
+<div class="codehilite"><pre><span></span><code><span class="p">{</span>
+  <span class="nt">&quot;prologue&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;address&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;port&quot;</span><span class="p">:</span> <span class="mi">8080</span><span class="p">,</span>
+    <span class="nt">&quot;debug&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;reusePort&quot;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nt">&quot;appName&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;secretKey&quot;</span><span class="p">:</span> <span class="s2">&quot;Set by yourself&quot;</span><span class="p">,</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Set <code>debug = false</code> to disable debug mode.</p>
+<p>Once debug mode is enabled, the program will display useful logging messages. It is helpful for debugging. But it will slow down the program. If you want to benchmark or release your program, please set <code>debug = false</code>.</p>
+<h2 id="url-building">URL Building</h2>
+<p><code>Prologue</code> provides a special function <code>urlFor</code> to get the URL from the name of handler. Before using <code>urlFor</code>, you should register the name of handler first.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">proc </span><span class="nf">hello</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="p">{.</span><span class="n">async</span><span class="p">.}</span> <span class="o">=</span>
+  <span class="n">resp</span> <span class="n">ctx</span><span class="p">.</span><span class="n">urlFor</span><span class="p">(</span><span class="s">&quot;index)</span>
+
+<span class="k">proc </span><span class="nf">index</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="p">{.</span><span class="n">async</span><span class="p">.}</span> <span class="o">=</span>
+  <span class="n">resp</span> <span class="s">&quot;Hello world&quot;</span>
+
+
+<span class="kd">var</span> <span class="n">app</span> <span class="o">=</span> <span class="n">newApp</span><span class="p">()</span>
+<span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;/hello&quot;</span><span class="p">,</span> <span class="n">hello</span><span class="p">)</span>
+<span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;/index&quot;</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;index&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>If you visit <code>localhost:8080/hello</code>, the browser will display <code>/index</code> on the screen. <code>urlFor</code> only supports two forms of Route: 1. <code>/route/hello</code> 2. <code>/route/{parameter}/other</code>. So you can also pass parameters to <code>urlFor</code>. For example <code>urlFor("route", {"parameter": "think"})</code> will build <code>/route/think/other</code>. It also supports passing query parameters.</p>
+<h2 id="static-files">Static Files</h2>
+<p>You may want to serve your HTML, CSS files. Static files middleware can be used for this purpose. You should put your static files under <code>/public</code> directory.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="n">prologue</span>
+<span class="kn">import</span> <span class="n">prologue</span><span class="o">/</span><span class="n">middlewares</span><span class="o">/</span><span class="n">staticfile</span>
+
+<span class="n">app</span><span class="p">.</span><span class="n">use</span><span class="p">(</span><span class="n">staticFileMiddleware</span><span class="p">(</span><span class="s">&quot;/public&quot;</span><span class="p">))</span>
+</code></pre></div>
+
+<h2 id="redirect">Redirect</h2>
+<p>You can easily redirect to other URL using <code>redirect</code> function. The default HTTP code for <code>redirct</code> function is Http301. You could use Http302 to move temporarily.</p>
+<p>The program below redirects to <code>localhost:8080/home</code>.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">proc </span><span class="nf">redirectHome</span><span class="o">*</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="p">{.</span><span class="n">async</span><span class="p">.}</span> <span class="o">=</span>
+  <span class="n">resp</span> <span class="n">redirect</span><span class="p">(</span><span class="s">&quot;/home&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<h2 id="cookies">Cookies</h2>
+<p><code>Prologue</code> provides <code>setCookie</code>, <code>deleteCookie</code> and <code>getCookie</code> to help you with cookies.</p>
+<p>The handler below will display the name in the cookies from the client if existing. Otherwise <code>AnyOne</code> will be displayed.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">proc </span><span class="nf">hello</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="p">{.</span><span class="n">async</span><span class="p">.}</span> <span class="o">=</span>
+  <span class="n">resp</span> <span class="n">ctx</span><span class="p">.</span><span class="n">getCookie</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;Anyone&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p><code>setCookie</code> sets the (key, value) pair in the HTTP headers. You could also set the <code>expires</code> or <code>maxAge</code> of the cookies. These attributes decide when the survival time of the cookies. <code>deleteCookie</code> will make the specific key expired at once.</p>
                 
               
               
