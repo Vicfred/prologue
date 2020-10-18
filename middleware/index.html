@@ -358,8 +358,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#use-a-middleware" class="md-nav__link">
-    Use a middleware
+  <a href="#write-reusable-handler" class="md-nav__link">
+    Write reusable handler
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-built-in-middleware" class="md-nav__link">
+    Use built-in middleware
   </a>
   
 </li>
@@ -510,8 +517,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#use-a-middleware" class="md-nav__link">
-    Use a middleware
+  <a href="#write-reusable-handler" class="md-nav__link">
+    Write reusable handler
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#use-built-in-middleware" class="md-nav__link">
+    Use built-in middleware
   </a>
   
 </li>
@@ -570,7 +584,28 @@ visible to some middlewares.</p>
 </code></pre></div>
 
 <p>You can put your middleware plugin in <a href="https://github.com/planety/awesome-prologue">collections</a>.</p>
-<h2 id="use-a-middleware">Use a middleware</h2>
+<h2 id="write-reusable-handler">Write reusable handler</h2>
+<p>Every handler in <code>Prologue</code> is a closure function. It is flexible to create a reusable components.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="n">prologue</span>
+
+
+<span class="k">proc </span><span class="nf">home</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="p">{.</span><span class="n">async</span><span class="p">.}</span> <span class="o">=</span>
+  <span class="n">resp</span> <span class="s">&quot;home&quot;</span>
+
+<span class="k">proc </span><span class="nf">redirectTo</span><span class="p">(</span>
+  <span class="n">dest</span><span class="p">:</span> <span class="kt">string</span>
+<span class="p">):</span> <span class="n">HandlerAsync</span> <span class="o">=</span>
+  <span class="n">result</span> <span class="o">=</span> <span class="k">proc</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="p">{.</span><span class="n">async</span><span class="p">.}</span> <span class="o">=</span>
+    <span class="n">resp</span> <span class="n">redirect</span><span class="p">(</span><span class="n">dest</span><span class="p">)</span>
+
+
+<span class="kd">var</span> <span class="n">app</span> <span class="o">=</span> <span class="n">newApp</span><span class="p">()</span>
+<span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span> <span class="n">home</span><span class="p">)</span>
+<span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;/redirect&quot;</span><span class="p">,</span> <span class="n">redirectTo</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">))</span>
+<span class="n">app</span><span class="p">.</span><span class="n">run</span><span class="p">()</span>
+</code></pre></div>
+
+<h2 id="use-built-in-middleware">Use built-in middleware</h2>
 <p><code>prologue</code> also supplies some middleware plugins, you can directly import <code>middlewares</code>.</p>
 <p>It contains <code>cors</code>, <code>clickjacking</code>, <code>csrf</code>, <code>utils</code> and <code>auth</code> middlewares.</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="n">prologue</span><span class="o">/</span><span class="n">middlewares</span>
