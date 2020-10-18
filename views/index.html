@@ -402,6 +402,27 @@
       
       
 
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
+      Views
+    </a>
+    
+  </li>
+
+    
+      
+      
+      
+
 
   <li class="md-nav__item">
     <a href="../openapi/" class="md-nav__link">
@@ -473,6 +494,30 @@
 
 <span class="n">echo</span> <span class="n">render</span><span class="p">(</span><span class="n">frameworks</span><span class="p">)</span>
 </code></pre></div>
+
+<p>You can combine them easily and create reusable components for later use. They are just like plain functions. It is very flexible for you to use them.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="n">karax</span> <span class="o">/</span> <span class="o">[</span><span class="n">karaxdsl</span><span class="p">,</span> <span class="n">vdom</span><span class="o">]</span>
+
+<span class="k">const</span> <span class="n">frameworks</span> <span class="o">=</span> <span class="o">[</span><span class="s">&quot;Prologue&quot;</span><span class="p">,</span> <span class="s">&quot;Httpx&quot;</span><span class="p">,</span> <span class="s">&quot;Starlight&quot;</span><span class="o">]</span>
+
+<span class="k">proc </span><span class="nf">prepare</span><span class="p">(</span><span class="n">L</span><span class="p">:</span> <span class="n">openarray</span><span class="o">[</span><span class="kt">string</span><span class="o">]</span><span class="p">):</span> <span class="n">VNode</span> <span class="o">=</span>
+  <span class="n">result</span> <span class="o">=</span> <span class="n">buildHtml</span><span class="p">(</span><span class="n">tdiv</span><span class="p">):</span>
+    <span class="n">ul</span><span class="p">:</span>
+      <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">L</span><span class="p">:</span>
+        <span class="n">li</span><span class="p">:</span> <span class="n">text</span> <span class="n">item</span>
+    <span class="n">dl</span><span class="p">:</span>
+      <span class="n">dt</span><span class="p">:</span> <span class="n">text</span> <span class="s">&quot;Is Prologue an elegant web framework?&quot;</span>
+      <span class="n">dd</span><span class="p">:</span> <span class="n">text</span> <span class="s">&quot;Yes&quot;</span>
+
+<span class="k">proc </span><span class="nf">render</span><span class="o">*</span><span class="p">(</span><span class="n">L</span><span class="p">:</span> <span class="n">openarray</span><span class="o">[</span><span class="kt">string</span><span class="o">]</span><span class="p">):</span> <span class="n">VNode</span> <span class="o">=</span>
+  <span class="n">result</span> <span class="o">=</span> <span class="n">buildHtml</span><span class="p">(</span><span class="n">tdiv</span><span class="p">(</span><span class="n">class</span> <span class="o">=</span> <span class="s">&quot;mt-3&quot;</span><span class="p">)):</span>
+    <span class="n">h1</span><span class="p">:</span> <span class="n">text</span> <span class="s">&quot;Which is my favourite web framework?&quot;</span>
+    <span class="n">p</span><span class="p">:</span> <span class="n">text</span> <span class="s">&quot;echo Prologue&quot;</span>
+    <span class="n">prepare</span><span class="p">(</span><span class="n">L</span><span class="p">)</span>
+
+
+<span class="n">echo</span> <span class="o">$</span><span class="n">render</span><span class="p">(</span><span class="n">frameworks</span><span class="p">)</span>
+</code></pre></div>
                 
               
               
@@ -487,6 +532,41 @@
       
         
 <footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../cli/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Command Line Tool
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../openapi/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                OpenApi Docs
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
