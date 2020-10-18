@@ -15,7 +15,7 @@
     
     
       
-        <title>Upload Files - Prologue</title>
+        <title>Views - Prologue</title>
       
     
     
@@ -58,7 +58,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#upload-files" class="md-skip">
+        <a href="#views" class="md-skip">
           Skip to content
         </a>
       
@@ -88,7 +88,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              Upload Files
+              Views
             
           </span>
         </div>
@@ -342,20 +342,11 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-    <a href="./" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../uploadfile/" class="md-nav__link">
       Upload Files
     </a>
-    
   </li>
 
     
@@ -459,26 +450,29 @@
               
                 
                 
-                <h1 id="upload-files">Upload Files</h1>
-<p><code>getUploadFile</code> accepts the name of file in order to get the infos. The function returns the name and contents of the file. For this example, the name is "file". </p>
-<div class="codehilite"><pre><span></span><code><span class="p">&lt;</span><span class="nt">form</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;upload&quot;</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;post&quot;</span> <span class="na">enctype</span><span class="o">=</span><span class="s">&quot;multipart/form-data&quot;</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;file&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;file&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;eva&quot;</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;Submit&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;submit&quot;</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
-</code></pre></div>
+                <h1 id="views">Views</h1>
+<p><code>Prologue</code> doesn't provide any templates engines. But we recommend <a href="https://github.com/pragmagic/karax">karax</a> to you. <code>karax</code> is a powerful template engines based on DSL. It is suitable for server side rendering.</p>
+<p>You should use <code>nimble install karax</code> or <code>logue extension karax</code> to install it.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="n">karax</span> <span class="o">/</span> <span class="o">[</span><span class="n">karaxdsl</span><span class="p">,</span> <span class="n">vdom</span><span class="o">]</span>
 
-<p><code>getUploadFile</code> only works when using form parameters and HttpPost method. <code>Context</code> provides a helper function to <code>save</code> the uploadFile to disks. If you don't specify the name of the file, it will use the origin name from the client.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">proc </span><span class="nf">upload</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="p">{.</span><span class="n">async</span><span class="p">.}</span> <span class="o">=</span>
-  <span class="k">if</span> <span class="n">ctx</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="n">reqMethod</span> <span class="o">==</span> <span class="n">HttpGet</span><span class="p">:</span>
-    <span class="n">await</span> <span class="n">ctx</span><span class="p">.</span><span class="n">staticFileResponse</span><span class="p">(</span><span class="s">&quot;tests/test_uploadFile/upload.html&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
-  <span class="k">elif</span> <span class="n">ctx</span><span class="p">.</span><span class="n">request</span><span class="p">.</span><span class="n">reqMethod</span> <span class="o">==</span> <span class="n">HttpPost</span><span class="p">:</span>
-    <span class="k">let</span> <span class="n">file</span> <span class="o">=</span> <span class="n">ctx</span><span class="p">.</span><span class="n">getUploadFile</span><span class="p">(</span><span class="s">&quot;file&quot;</span><span class="p">)</span>
-    <span class="n">file</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">&quot;tests/test_uploadFile&quot;</span><span class="p">)</span>
-    <span class="n">file</span><span class="p">.</span><span class="n">save</span><span class="p">(</span><span class="s">&quot;tests/test_uploadFile&quot;</span><span class="p">,</span> <span class="s">&quot;set.txt&quot;</span><span class="p">)</span>
-    <span class="n">resp</span> <span class="s">fmt&quot;&lt;html&gt;&lt;h1&gt;{file.filename}&lt;/h1&gt;&lt;p&gt;{file.body}&lt;/p&gt;&lt;/html&gt;&quot;</span>
-</code></pre></div>
+<span class="k">const</span> <span class="n">frameworks</span> <span class="o">=</span> <span class="o">[</span><span class="s">&quot;Prologue&quot;</span><span class="p">,</span> <span class="s">&quot;Httpx&quot;</span><span class="p">,</span> <span class="s">&quot;Starlight&quot;</span><span class="o">]</span>
 
-<p>The full <a href="https://github.com/planety/prologue/blob/devel/tests/test_uploadFile">example</a></p>
+
+<span class="k">proc </span><span class="nf">render</span><span class="o">*</span><span class="p">(</span><span class="n">L</span><span class="p">:</span> <span class="n">openarray</span><span class="o">[</span><span class="kt">string</span><span class="o">]</span><span class="p">):</span> <span class="kt">string</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="n">vnode</span> <span class="o">=</span> <span class="n">buildHtml</span><span class="p">(</span><span class="n">tdiv</span><span class="p">(</span><span class="n">class</span> <span class="o">=</span> <span class="s">&quot;mt-3&quot;</span><span class="p">)):</span>
+    <span class="n">h1</span><span class="p">:</span> <span class="n">text</span> <span class="s">&quot;Which is my favourite web framework?&quot;</span>
+    <span class="n">p</span><span class="p">:</span> <span class="n">text</span> <span class="s">&quot;echo Prologue&quot;</span>
+
+    <span class="n">ul</span><span class="p">:</span>
+      <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">L</span><span class="p">:</span>
+        <span class="n">li</span><span class="p">:</span> <span class="n">text</span> <span class="n">item</span>
+    <span class="n">dl</span><span class="p">:</span>
+      <span class="n">dt</span><span class="p">:</span> <span class="n">text</span> <span class="s">&quot;Is Prologue an elegant web framework?&quot;</span>
+      <span class="n">dd</span><span class="p">:</span> <span class="n">text</span> <span class="s">&quot;Yes&quot;</span>
+  <span class="n">result</span> <span class="o">=</span> <span class="o">$</span><span class="n">vnode</span>
+
+<span class="n">echo</span> <span class="n">render</span><span class="p">(</span><span class="n">frameworks</span><span class="p">)</span>
+</code></pre></div>
                 
               
               
@@ -493,41 +487,6 @@
       
         
 <footer class="md-footer">
-  
-    <div class="md-footer-nav">
-      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
-        
-          <a href="../staticfiles/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
-            <div class="md-footer-nav__button md-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-            </div>
-            <div class="md-footer-nav__title">
-              <div class="md-ellipsis">
-                <span class="md-footer-nav__direction">
-                  Previous
-                </span>
-                Static Files
-              </div>
-            </div>
-          </a>
-        
-        
-          <a href="../session/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
-            <div class="md-footer-nav__title">
-              <div class="md-ellipsis">
-                <span class="md-footer-nav__direction">
-                  Next
-                </span>
-                Session
-              </div>
-            </div>
-            <div class="md-footer-nav__button md-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
-            </div>
-          </a>
-        
-      </nav>
-    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
