@@ -519,8 +519,10 @@
 </code></pre></div>
 
 <p>(3). There are two ways to disable logging messages:</p>
-<p>(1) set <code>settings.debug</code> = false
-(2) set a startup event</p>
+<ul>
+<li>set <code>settings.debug</code> = false</li>
+<li>set a startup event</li>
+</ul>
 <div class="codehilite"><pre><span></span><code><span class="k">proc </span><span class="nf">setLoggingLevel</span><span class="p">()</span> <span class="o">=</span>
   <span class="n">addHandler</span><span class="p">(</span><span class="n">newConsoleLogger</span><span class="p">())</span>
   <span class="n">logging</span><span class="p">.</span><span class="n">setLogFilter</span><span class="p">(</span><span class="n">lvlInfo</span><span class="p">)</span>
