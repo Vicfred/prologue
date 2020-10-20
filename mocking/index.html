@@ -15,7 +15,7 @@
     
     
       
-        <title>Static Files - Prologue</title>
+        <title>Mocking - Prologue</title>
       
     
     
@@ -58,7 +58,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#static-files" class="md-skip">
+        <a href="#mocking" class="md-skip">
           Skip to content
         </a>
       
@@ -88,7 +88,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              Static Files
+              Mocking
             
           </span>
         </div>
@@ -330,70 +330,11 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        Static Files
-        <span class="md-nav__icon md-icon"></span>
-      </label>
-    
-    <a href="./" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../staticfiles/" class="md-nav__link">
       Static Files
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#send-static-file-response" class="md-nav__link">
-    Send static file Response
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#download-files" class="md-nav__link">
-    Download files
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#serve-static-files" class="md-nav__link">
-    Serve static files
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#serving-favicon" class="md-nav__link">
-    Serving Favicon
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
     
@@ -425,11 +366,20 @@
       
       
 
+  
 
-  <li class="md-nav__item">
-    <a href="../mocking/" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
       Mocking
     </a>
+    
   </li>
 
     
@@ -534,42 +484,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#send-static-file-response" class="md-nav__link">
-    Send static file Response
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#download-files" class="md-nav__link">
-    Download files
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#serve-static-files" class="md-nav__link">
-    Serve static files
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#serving-favicon" class="md-nav__link">
-    Serving Favicon
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -581,57 +495,44 @@
               
                 
                 
-                <h1 id="static-files">Static Files</h1>
-<p>Prologue supports serving static files.</p>
-<h2 id="send-static-file-response">Send static file Response</h2>
-<p>You can use <code>staticFileResponse</code> to make a static file response.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">proc </span><span class="nf">home</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="p">{.</span><span class="n">async</span><span class="p">.}</span> <span class="o">=</span>
-  <span class="n">await</span> <span class="n">ctx</span><span class="p">.</span><span class="n">staticFileResponse</span><span class="p">(</span><span class="s">&quot;hello.html&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<h2 id="download-files">Download files</h2>
-<p>User maybe want to download some files from the server. You can use <code>staticFileResponse</code> to send the file to be downloaded. </p>
-<div class="codehilite"><pre><span></span><code><span class="k">proc </span><span class="nf">downloadFile</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="p">{.</span><span class="n">async</span><span class="p">.}</span> <span class="o">=</span>
-  <span class="n">await</span> <span class="n">ctx</span><span class="p">.</span><span class="n">staticFileResponse</span><span class="p">(</span><span class="s">&quot;index.html&quot;</span><span class="p">,</span> <span class="s">&quot;static&quot;</span><span class="p">,</span> <span class="n">downloadName</span> <span class="o">=</span> <span class="s">&quot;download.html&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<h2 id="serve-static-files">Serve static files</h2>
-<p><code>staticfile</code> is implemented as middleware. It should be imported first. You can specify the path of static directories. <code>staticDirs</code> is of <code>varargs[string]</code> type. It contains all
-the directories of static files which will be checked in every request.</p>
+                <h1 id="mocking">Mocking</h1>
+<p>Mocking module can be used for quick test without HTTP server.</p>
+<p>First use <code>mockApp</code> to add <code>mockingMiddleware</code> to the application. Next create a new mocking request using <code>initMockingRequest</code>. Then run the mocking application with <code>runOnce</code>. Finally check whether <code>ctx</code> meets your requirements.</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="n">prologue</span>
-<span class="kn">import</span> <span class="n">prologue</span><span class="o">/</span><span class="n">middlewares</span><span class="o">/</span><span class="n">staticfile</span>
+<span class="kn">import</span> <span class="n">prologue</span><span class="o">/</span><span class="n">mocking</span>
+
+<span class="kn">import</span> <span class="n">std</span><span class="o">/</span><span class="n">uri</span>
 
 
+<span class="k">proc </span><span class="nf">hello</span><span class="o">*</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="p">{.</span><span class="n">async</span><span class="p">.}</span> <span class="o">=</span>
+  <span class="n">resp</span> <span class="s">&quot;&lt;h1&gt;Hello, Prologue!&lt;/h1&gt;&quot;</span>
+
+
+<span class="k">let</span> <span class="n">settings</span> <span class="o">=</span> <span class="n">newSettings</span><span class="p">(</span><span class="n">debug</span> <span class="o">=</span> <span class="kp">true</span><span class="p">)</span>
 <span class="kd">var</span> <span class="n">app</span> <span class="o">=</span> <span class="n">newApp</span><span class="p">(</span><span class="n">settings</span> <span class="o">=</span> <span class="n">settings</span><span class="p">)</span>
-<span class="n">app</span><span class="p">.</span><span class="n">use</span><span class="p">(</span><span class="n">staticFileMiddleware</span><span class="p">(</span><span class="n">env</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;staticDir&quot;</span><span class="p">)))</span>
-<span class="n">app</span><span class="p">.</span><span class="n">addRoute</span><span class="p">(</span><span class="n">urls</span><span class="p">.</span><span class="n">urlPatterns</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
-<span class="n">app</span><span class="p">.</span><span class="n">run</span><span class="p">()</span>
-</code></pre></div>
+<span class="n">app</span><span class="p">.</span><span class="n">addRoute</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span> <span class="n">hello</span><span class="p">)</span>
 
-<p>Multiple directories:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="n">prologue</span>
-<span class="kn">import</span> <span class="n">prologue</span><span class="o">/</span><span class="n">middlewares</span><span class="o">/</span><span class="n">staticfile</span>
+<span class="n">mockApp</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
 
 
-<span class="kd">var</span> <span class="n">app</span> <span class="o">=</span> <span class="n">newApp</span><span class="p">(</span><span class="n">settings</span> <span class="o">=</span> <span class="n">settings</span><span class="p">)</span>
-<span class="n">app</span><span class="p">.</span><span class="n">use</span><span class="p">(</span><span class="n">staticFileMiddleware</span><span class="p">(</span><span class="s">&quot;public&quot;</span><span class="p">,</span> <span class="s">&quot;templates&quot;</span><span class="p">))</span>
-<span class="c"># Or seq[string]</span>
-<span class="c"># app.use(staticFileMiddleware(@[&quot;public&quot;, &quot;templates&quot;]))</span>
-<span class="c"># Or array[N, string]</span>
-<span class="c"># app.use(staticFileMiddleware([&quot;public&quot;, &quot;templates&quot;]))</span>
-<span class="n">app</span><span class="p">.</span><span class="n">addRoute</span><span class="p">(</span><span class="n">urls</span><span class="p">.</span><span class="n">urlPatterns</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
-<span class="n">app</span><span class="p">.</span><span class="n">run</span><span class="p">()</span>
-</code></pre></div>
+<span class="k">let</span> <span class="n">url</span> <span class="o">=</span> <span class="n">parseUri</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">)</span>
 
-<h2 id="serving-favicon">Serving Favicon</h2>
-<p>You may want to add an icon for your website, you can use a favicon. The browser maybe request <code>/favicon.ico</code> to find an icon. <code>redirctTo</code> is handy for this work. <code>dest</code> is the real path of a favicon. For example, you can put it under <code>static</code> directory.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="n">prologue</span>
-<span class="kn">from</span> <span class="n">prologue</span><span class="o">/</span><span class="n">middlewares</span><span class="o">/</span><span class="n">staticfile</span> <span class="kn">import</span> <span class="n">redirectTo</span>
+<span class="k">let</span> <span class="n">req</span> <span class="o">=</span> <span class="n">initMockingRequest</span><span class="p">(</span>
+  <span class="n">httpMethod</span> <span class="o">=</span> <span class="n">HttpGet</span><span class="p">,</span>
+  <span class="n">headers</span> <span class="o">=</span> <span class="n">newHttpHeaders</span><span class="p">(),</span>
+  <span class="n">url</span> <span class="o">=</span> <span class="n">url</span><span class="p">,</span>
+  <span class="n">cookies</span> <span class="o">=</span> <span class="n">initCookieJar</span><span class="p">(),</span>
+  <span class="n">postParams</span> <span class="o">=</span> <span class="n">newStringTable</span><span class="p">(),</span>
+  <span class="n">queryParams</span> <span class="o">=</span> <span class="n">newStringTable</span><span class="p">(),</span>
+  <span class="n">formParams</span> <span class="o">=</span> <span class="n">initFormPart</span><span class="p">(),</span>
+  <span class="n">pathParams</span> <span class="o">=</span> <span class="n">newStringTable</span><span class="p">()</span>
+<span class="p">)</span>
 
+<span class="k">let</span> <span class="n">ctx</span> <span class="o">=</span> <span class="n">app</span><span class="p">.</span><span class="n">runOnce</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
 
-<span class="kd">var</span> <span class="n">app</span> <span class="o">=</span> <span class="n">newApp</span><span class="p">()</span>
-<span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;/favicon.ico&quot;</span><span class="p">,</span> <span class="n">redirectTo</span><span class="p">(</span><span class="s">&quot;/static/favicon.ico&quot;</span><span class="p">))</span>
-<span class="n">app</span><span class="p">.</span><span class="n">run</span><span class="p">()</span>
+<span class="n">doAssert</span> <span class="n">ctx</span><span class="p">.</span><span class="n">response</span><span class="p">.</span><span class="n">code</span> <span class="o">==</span> <span class="n">Http200</span>
+<span class="n">doAssert</span> <span class="n">ctx</span><span class="p">.</span><span class="n">response</span><span class="p">.</span><span class="n">getHeader</span><span class="p">(</span><span class="s">&quot;content-type&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="o">@[</span><span class="s">&quot;text/html; charset=UTF-8&quot;</span><span class="o">]</span>
+<span class="n">doAssert</span> <span class="n">ctx</span><span class="p">.</span><span class="n">response</span><span class="p">.</span><span class="n">body</span> <span class="o">==</span> <span class="s">&quot;&lt;h1&gt;Hello, Prologue!&lt;/h1&gt;&quot;</span>
 </code></pre></div>
                 
               
@@ -651,7 +552,7 @@ the directories of static files which will be checked in every request.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../middleware/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../session/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -660,19 +561,19 @@ the directories of static files which will be checked in every request.</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Middleware
+                Session
               </div>
             </div>
           </a>
         
         
-          <a href="../uploadfile/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../server/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Upload Files
+                Server Settings
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
