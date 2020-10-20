@@ -15,7 +15,7 @@
     
     
       
-        <title>Validation - Prologue</title>
+        <title>Extend Context - Prologue</title>
       
     
     
@@ -58,7 +58,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#validation" class="md-skip">
+        <a href="#extend-context" class="md-skip">
           Skip to content
         </a>
       
@@ -88,7 +88,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              Validation
+              Extend Context
             
           </span>
         </div>
@@ -378,11 +378,20 @@
       
       
 
+  
 
-  <li class="md-nav__item">
-    <a href="../extendctx/" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
       Extend Context
     </a>
+    
   </li>
 
     
@@ -438,56 +447,11 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-      <label class="md-nav__link md-nav__link--active" for="__toc">
-        Validation
-        <span class="md-nav__icon md-icon"></span>
-      </label>
-    
-    <a href="./" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../validation/" class="md-nav__link">
       Validation
     </a>
-    
-      
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#single-record" class="md-nav__link">
-    Single Record
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#multiple-records" class="md-nav__link">
-    Multiple Records
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-    
   </li>
 
     
@@ -520,28 +484,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#single-record" class="md-nav__link">
-    Single Record
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#multiple-records" class="md-nav__link">
-    Multiple Records
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -552,54 +494,44 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/planety/prologue/tree/devel/docs/validation.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/planety/prologue/tree/devel/docs/extendctx.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="validation">Validation</h1>
-<p><code>Prologue</code> provides lots of helper functions for validating data from users.</p>
-<h2 id="single-record">Single Record</h2>
-<p>Each helper function could be used directly, for examples you want to check whether the content of a string is an int.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="n">prologue</span><span class="o">/</span><span class="n">validate</span><span class="o">/</span><span class="n">validate</span>
+                <h1 id="extend-context">Extend Context</h1>
+<p><code>Prologue</code> provides flexible way to extend <code>Context</code>. <code>User-defined Context</code> should inherit from the <code>Context</code> from <code>Prologue</code>.</p>
+<p>You may want to add an int to <code>Context</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="n">prologue</span>
+<span class="kn">import</span> <span class="n">strformat</span>
 
-<span class="k">let</span>
-  <span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;Int required&quot;</span>
-  <span class="n">checkInt</span> <span class="o">=</span> <span class="n">isInt</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
-<span class="n">doAssert</span> <span class="n">checkInt</span><span class="p">(</span><span class="s">&quot;12&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="kp">true</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
-<span class="n">doAssert</span> <span class="n">checkInt</span><span class="p">(</span><span class="s">&quot;912.6) == (false, msg)</span>
-</code></pre></div>
+<span class="k">type</span>
+  <span class="n">UserContext</span> <span class="o">=</span> <span class="k">ref</span> <span class="k">object</span> <span class="k">of</span> <span class="n">Context</span>
+    <span class="n">data</span><span class="p">:</span> <span class="kt">int</span>
 
-<h2 id="multiple-records">Multiple Records</h2>
-<p>You could also check whether multiple records meets the requirements.</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="n">prologue</span><span class="o">/</span><span class="n">validate</span><span class="o">/</span><span class="n">validate</span>
-<span class="kn">import</span> <span class="n">strtabs</span>
+  <span class="n">ExperimentContext</span> <span class="o">=</span> <span class="k">concept</span> <span class="n">ctx</span>
+    <span class="n">ctx</span> <span class="ow">is</span> <span class="n">Context</span>
+    <span class="n">ctx</span><span class="p">.</span><span class="n">data</span> <span class="ow">is</span> <span class="kt">int</span>
 
-<span class="kd">var</span> <span class="n">validater</span> <span class="o">=</span> <span class="n">newFormValidation</span><span class="p">({</span>
-      <span class="s">&quot;accepted&quot;</span><span class="p">:</span> <span class="o">@[</span><span class="n">required</span><span class="p">(),</span> <span class="n">accepted</span><span class="p">()</span><span class="o">]</span><span class="p">,</span>
-      <span class="s">&quot;required&quot;</span><span class="p">:</span> <span class="o">@[</span><span class="n">required</span><span class="p">()</span><span class="o">]</span><span class="p">,</span>
-      <span class="s">&quot;requiredInt&quot;</span><span class="p">:</span> <span class="o">@[</span><span class="n">required</span><span class="p">(),</span> <span class="n">isInt</span><span class="p">()</span><span class="o">]</span><span class="p">,</span>
-      <span class="s">&quot;minValue&quot;</span><span class="p">:</span> <span class="o">@[</span><span class="n">required</span><span class="p">(),</span> <span class="n">isInt</span><span class="p">(),</span> <span class="n">minValue</span><span class="p">(</span><span class="mi">12</span><span class="p">),</span> <span class="n">maxValue</span><span class="p">(</span><span class="mi">19</span><span class="p">)</span><span class="o">]</span>
-    <span class="p">})</span>
-<span class="k">let</span>
-  <span class="n">chk1</span> <span class="o">=</span> <span class="n">validater</span><span class="p">.</span><span class="n">validate</span><span class="p">({</span><span class="s">&quot;required&quot;</span><span class="p">:</span> <span class="s">&quot;on&quot;</span><span class="p">,</span> <span class="s">&quot;accepted&quot;</span><span class="p">:</span> <span class="s">&quot;true&quot;</span><span class="p">,</span>
-      <span class="s">&quot;requiredInt&quot;</span><span class="p">:</span> <span class="s">&quot;12&quot;</span><span class="p">,</span> <span class="s">&quot;minValue&quot;</span><span class="p">:</span> <span class="s">&quot;15&quot;</span><span class="p">}.</span><span class="n">newStringTable</span><span class="p">)</span>
-  <span class="n">chk2</span> <span class="o">=</span> <span class="n">validater</span><span class="p">.</span><span class="n">validate</span><span class="p">({</span><span class="s">&quot;requird&quot;</span><span class="p">:</span> <span class="s">&quot;on&quot;</span><span class="p">,</span> <span class="s">&quot;time&quot;</span><span class="p">:</span> <span class="s">&quot;555&quot;</span><span class="p">,</span>
-      <span class="s">&quot;minValue&quot;</span><span class="p">:</span> <span class="s">&quot;10&quot;</span><span class="p">}.</span><span class="n">newStringTable</span><span class="p">)</span>
-  <span class="n">chk3</span> <span class="o">=</span> <span class="n">validater</span><span class="p">.</span><span class="n">validate</span><span class="p">({</span><span class="s">&quot;requird&quot;</span><span class="p">:</span> <span class="s">&quot;on&quot;</span><span class="p">,</span> <span class="s">&quot;time&quot;</span><span class="p">:</span> <span class="s">&quot;555&quot;</span><span class="p">,</span>
-      <span class="s">&quot;minValue&quot;</span><span class="p">:</span> <span class="s">&quot;10&quot;</span><span class="p">}.</span><span class="n">newStringTable</span><span class="p">,</span> <span class="n">allMsgs</span> <span class="o">=</span> <span class="kp">false</span><span class="p">)</span>
-  <span class="n">chk4</span> <span class="o">=</span> <span class="n">validater</span><span class="p">.</span><span class="n">validate</span><span class="p">({</span><span class="s">&quot;required&quot;</span><span class="p">:</span> <span class="s">&quot;on&quot;</span><span class="p">,</span> <span class="s">&quot;accepted&quot;</span><span class="p">:</span> <span class="s">&quot;true&quot;</span><span class="p">,</span>
-  <span class="s">&quot;requiredInt&quot;</span><span class="p">:</span> <span class="s">&quot;12.5&quot;</span><span class="p">,</span> <span class="s">&quot;minValue&quot;</span><span class="p">:</span> <span class="s">&quot;13&quot;</span><span class="p">}.</span><span class="n">newStringTable</span><span class="p">,</span> <span class="n">allMsgs</span> <span class="o">=</span> <span class="kp">false</span><span class="p">)</span>
 
-<span class="n">doAssert</span> <span class="n">chk1</span> <span class="o">==</span> <span class="p">(</span><span class="kp">true</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
-<span class="n">doAssert</span> <span class="ow">not</span> <span class="n">chk2</span><span class="p">.</span><span class="n">hasValue</span>
-<span class="n">doAssert</span> <span class="n">chk2</span><span class="p">.</span><span class="n">msg</span> <span class="o">==</span> <span class="s">&quot;Can</span><span class="se">\&#39;</span><span class="s">t find key: accepted</span><span class="se">\n</span><span class="s">Can</span><span class="se">\&#39;</span><span class="s">t find key: &quot;</span> <span class="o">&amp;</span>
-        <span class="s">&quot;required</span><span class="se">\n</span><span class="s">Can</span><span class="se">\&#39;</span><span class="s">t find key: requiredInt</span><span class="se">\n</span><span class="s">10 is not greater than or equal to 12.0!</span><span class="se">\n</span><span class="s">&quot;</span>
-<span class="n">doAssert</span> <span class="ow">not</span> <span class="n">chk3</span><span class="p">.</span><span class="n">hasValue</span>
-<span class="n">doAssert</span> <span class="n">chk3</span><span class="p">.</span><span class="n">msg</span> <span class="o">==</span> <span class="s">&quot;Can</span><span class="se">\&#39;</span><span class="s">t find key: accepted</span><span class="se">\n</span><span class="s">&quot;</span>
-<span class="n">doAssert</span> <span class="ow">not</span> <span class="n">chk4</span><span class="p">.</span><span class="n">hasValue</span>
-<span class="n">doAssert</span> <span class="n">chk4</span><span class="p">.</span><span class="n">msg</span> <span class="o">==</span> <span class="s">&quot;12.5 is not an integer!</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="k">proc </span><span class="nf">experimentMiddleware</span><span class="o">[</span><span class="n">T</span><span class="p">:</span> <span class="n">ExperimentContext</span><span class="o">]</span><span class="p">(</span><span class="n">ctxType</span><span class="p">:</span> <span class="n">typedesc</span><span class="o">[</span><span class="n">T</span><span class="o">]</span><span class="p">):</span> <span class="n">HandlerAsync</span> <span class="o">=</span>
+  <span class="k">mixin</span> <span class="n">await</span>
+  <span class="n">result</span> <span class="o">=</span> <span class="k">proc</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="p">{.</span><span class="n">async</span><span class="p">.}</span> <span class="o">=</span>
+    <span class="n">inc</span> <span class="n">ctx</span><span class="p">.</span><span class="n">ctxType</span><span class="p">.</span><span class="n">data</span>
+    <span class="n">echo</span> <span class="s">fmt&quot;{ctx.ctxType.data = }&quot;</span>
+    <span class="n">await</span> <span class="n">switch</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+
+<span class="k">proc </span><span class="nf">hello</span><span class="o">*</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="p">{.</span><span class="n">async</span><span class="p">.}</span> <span class="o">=</span>
+  <span class="n">inc</span> <span class="n">ctx</span><span class="p">.</span><span class="n">UserContext</span><span class="p">.</span><span class="n">data</span>
+  <span class="n">echo</span> <span class="s">fmt&quot;{ctx.UserContext.data = }&quot;</span>
+  <span class="n">resp</span> <span class="s">&quot;&lt;h1&gt;Hello, Prologue!&lt;/h1&gt;&quot;</span>
+
+<span class="kd">var</span> <span class="n">app</span> <span class="o">=</span> <span class="n">newApp</span><span class="p">()</span>
+<span class="n">app</span><span class="p">.</span><span class="n">use</span><span class="p">(</span><span class="n">extendContextMiddleWare</span><span class="p">(</span><span class="n">UserContext</span><span class="p">))</span>
+<span class="n">app</span><span class="p">.</span><span class="n">use</span><span class="p">(</span><span class="n">experimentMiddleware</span><span class="p">(</span><span class="n">UserContext</span><span class="p">))</span>
+<span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span> <span class="n">hello</span><span class="p">)</span>
+<span class="n">app</span><span class="p">.</span><span class="n">run</span><span class="p">()</span>
 </code></pre></div>
                 
               
@@ -619,7 +551,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../openapi/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../server/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -628,19 +560,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                OpenAPI
+                Server Settings
               </div>
             </div>
           </a>
         
         
-          <a href="../faq/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../websocket/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                FAQ
+                WebSocket
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
