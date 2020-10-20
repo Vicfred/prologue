@@ -57,6 +57,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#validation" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -421,6 +426,63 @@
       
       
 
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Validation
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
+      Validation
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#single-record" class="md-nav__link">
+    Single Record
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multiple-records" class="md-nav__link">
+    Multiple Records
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
 
   <li class="md-nav__item">
     <a href="../faq/" class="md-nav__link">
@@ -436,15 +498,93 @@
               </div>
             
             
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#single-record" class="md-nav__link">
+    Single Record
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multiple-records" class="md-nav__link">
+    Multiple Records
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content">
             <article class="md-content__inner md-typeset">
               
                 
                 
-                  <h1>Validation</h1>
-                
-                
+                <h1 id="validation">Validation</h1>
+<p><code>Prologue</code> provides lots of helper functions for validating data from users.</p>
+<h2 id="single-record">Single Record</h2>
+<p>Each helper function could be used directly, for examples you want to check whether the content of a string is an int.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="n">prologue</span><span class="o">/</span><span class="n">validate</span><span class="o">/</span><span class="n">validate</span>
+
+<span class="k">let</span>
+  <span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;Int required&quot;</span>
+  <span class="n">checkInt</span> <span class="o">=</span> <span class="n">isInt</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+<span class="n">doAssert</span> <span class="n">checkInt</span><span class="p">(</span><span class="s">&quot;12&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="kp">true</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+<span class="n">doAssert</span> <span class="n">checkInt</span><span class="p">(</span><span class="s">&quot;912.6) == (false, msg)</span>
+</code></pre></div>
+
+<h2 id="multiple-records">Multiple Records</h2>
+<p>You could also check whether multiple records meets the requirements.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="n">prologue</span><span class="o">/</span><span class="n">validate</span><span class="o">/</span><span class="n">validate</span>
+<span class="kn">import</span> <span class="n">strtabs</span>
+
+<span class="kd">var</span> <span class="n">validater</span> <span class="o">=</span> <span class="n">newFormValidation</span><span class="p">({</span>
+      <span class="s">&quot;accepted&quot;</span><span class="p">:</span> <span class="o">@[</span><span class="n">required</span><span class="p">(),</span> <span class="n">accepted</span><span class="p">()</span><span class="o">]</span><span class="p">,</span>
+      <span class="s">&quot;required&quot;</span><span class="p">:</span> <span class="o">@[</span><span class="n">required</span><span class="p">()</span><span class="o">]</span><span class="p">,</span>
+      <span class="s">&quot;requiredInt&quot;</span><span class="p">:</span> <span class="o">@[</span><span class="n">required</span><span class="p">(),</span> <span class="n">isInt</span><span class="p">()</span><span class="o">]</span><span class="p">,</span>
+      <span class="s">&quot;minValue&quot;</span><span class="p">:</span> <span class="o">@[</span><span class="n">required</span><span class="p">(),</span> <span class="n">isInt</span><span class="p">(),</span> <span class="n">minValue</span><span class="p">(</span><span class="mi">12</span><span class="p">),</span> <span class="n">maxValue</span><span class="p">(</span><span class="mi">19</span><span class="p">)</span><span class="o">]</span>
+    <span class="p">})</span>
+<span class="k">let</span>
+  <span class="n">chk1</span> <span class="o">=</span> <span class="n">validater</span><span class="p">.</span><span class="n">validate</span><span class="p">({</span><span class="s">&quot;required&quot;</span><span class="p">:</span> <span class="s">&quot;on&quot;</span><span class="p">,</span> <span class="s">&quot;accepted&quot;</span><span class="p">:</span> <span class="s">&quot;true&quot;</span><span class="p">,</span>
+      <span class="s">&quot;requiredInt&quot;</span><span class="p">:</span> <span class="s">&quot;12&quot;</span><span class="p">,</span> <span class="s">&quot;minValue&quot;</span><span class="p">:</span> <span class="s">&quot;15&quot;</span><span class="p">}.</span><span class="n">newStringTable</span><span class="p">)</span>
+  <span class="n">chk2</span> <span class="o">=</span> <span class="n">validater</span><span class="p">.</span><span class="n">validate</span><span class="p">({</span><span class="s">&quot;requird&quot;</span><span class="p">:</span> <span class="s">&quot;on&quot;</span><span class="p">,</span> <span class="s">&quot;time&quot;</span><span class="p">:</span> <span class="s">&quot;555&quot;</span><span class="p">,</span>
+      <span class="s">&quot;minValue&quot;</span><span class="p">:</span> <span class="s">&quot;10&quot;</span><span class="p">}.</span><span class="n">newStringTable</span><span class="p">)</span>
+  <span class="n">chk3</span> <span class="o">=</span> <span class="n">validater</span><span class="p">.</span><span class="n">validate</span><span class="p">({</span><span class="s">&quot;requird&quot;</span><span class="p">:</span> <span class="s">&quot;on&quot;</span><span class="p">,</span> <span class="s">&quot;time&quot;</span><span class="p">:</span> <span class="s">&quot;555&quot;</span><span class="p">,</span>
+      <span class="s">&quot;minValue&quot;</span><span class="p">:</span> <span class="s">&quot;10&quot;</span><span class="p">}.</span><span class="n">newStringTable</span><span class="p">,</span> <span class="n">allMsgs</span> <span class="o">=</span> <span class="kp">false</span><span class="p">)</span>
+  <span class="n">chk4</span> <span class="o">=</span> <span class="n">validater</span><span class="p">.</span><span class="n">validate</span><span class="p">({</span><span class="s">&quot;required&quot;</span><span class="p">:</span> <span class="s">&quot;on&quot;</span><span class="p">,</span> <span class="s">&quot;accepted&quot;</span><span class="p">:</span> <span class="s">&quot;true&quot;</span><span class="p">,</span>
+  <span class="s">&quot;requiredInt&quot;</span><span class="p">:</span> <span class="s">&quot;12.5&quot;</span><span class="p">,</span> <span class="s">&quot;minValue&quot;</span><span class="p">:</span> <span class="s">&quot;13&quot;</span><span class="p">}.</span><span class="n">newStringTable</span><span class="p">,</span> <span class="n">allMsgs</span> <span class="o">=</span> <span class="kp">false</span><span class="p">)</span>
+
+<span class="n">doAssert</span> <span class="n">chk1</span> <span class="o">==</span> <span class="p">(</span><span class="kp">true</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+<span class="n">doAssert</span> <span class="ow">not</span> <span class="n">chk2</span><span class="p">.</span><span class="n">hasValue</span>
+<span class="n">doAssert</span> <span class="n">chk2</span><span class="p">.</span><span class="n">msg</span> <span class="o">==</span> <span class="s">&quot;Can</span><span class="se">\&#39;</span><span class="s">t find key: accepted</span><span class="se">\n</span><span class="s">Can</span><span class="se">\&#39;</span><span class="s">t find key: &quot;</span> <span class="o">&amp;</span>
+        <span class="s">&quot;required</span><span class="se">\n</span><span class="s">Can</span><span class="se">\&#39;</span><span class="s">t find key: requiredInt</span><span class="se">\n</span><span class="s">10 is not greater than or equal to 12.0!</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="n">doAssert</span> <span class="ow">not</span> <span class="n">chk3</span><span class="p">.</span><span class="n">hasValue</span>
+<span class="n">doAssert</span> <span class="n">chk3</span><span class="p">.</span><span class="n">msg</span> <span class="o">==</span> <span class="s">&quot;Can</span><span class="se">\&#39;</span><span class="s">t find key: accepted</span><span class="se">\n</span><span class="s">&quot;</span>
+<span class="n">doAssert</span> <span class="ow">not</span> <span class="n">chk4</span><span class="p">.</span><span class="n">hasValue</span>
+<span class="n">doAssert</span> <span class="n">chk4</span><span class="p">.</span><span class="n">msg</span> <span class="o">==</span> <span class="s">&quot;12.5 is not an integer!</span><span class="se">\n</span><span class="s">&quot;</span>
+</code></pre></div>
                 
               
               
@@ -459,6 +599,41 @@
       
         
 <footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../openapi/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                OpenAPI
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../faq/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                FAQ
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
