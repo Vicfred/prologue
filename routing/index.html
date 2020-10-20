@@ -15,7 +15,7 @@
     
     
       
-        <title>Route - Prologue</title>
+        <title>Routing - Prologue</title>
       
     
     
@@ -58,7 +58,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#route" class="md-skip">
+        <a href="#routing" class="md-skip">
           Skip to content
         </a>
       
@@ -88,7 +88,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              Route
+              Routing
             
           </span>
         </div>
@@ -317,12 +317,12 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Route
+        Routing
         <span class="md-nav__icon md-icon"></span>
       </label>
     
     <a href="./" class="md-nav__link md-nav__link--active">
-      Route
+      Routing
     </a>
     
       
@@ -339,30 +339,37 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#static-route" class="md-nav__link">
-    Static Route
+  <a href="#static-routing" class="md-nav__link">
+    Static Routing
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#parameters-route" class="md-nav__link">
-    Parameters Route
+  <a href="#parameters-routing" class="md-nav__link">
+    Parameters Routing
   </a>
   
-    <nav class="md-nav" aria-label="Parameters Route">
+    <nav class="md-nav" aria-label="Parameters Routing">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#regex-route" class="md-nav__link">
-    Regex Route
+  <a href="#regex-routing" class="md-nav__link">
+    Regex Routing
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#group-route" class="md-nav__link">
-    Group Route
+  <a href="#pattern-routing" class="md-nav__link">
+    Pattern Routing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group-routing" class="md-nav__link">
+    Group Routing
   </a>
   
 </li>
@@ -547,30 +554,37 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#static-route" class="md-nav__link">
-    Static Route
+  <a href="#static-routing" class="md-nav__link">
+    Static Routing
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#parameters-route" class="md-nav__link">
-    Parameters Route
+  <a href="#parameters-routing" class="md-nav__link">
+    Parameters Routing
   </a>
   
-    <nav class="md-nav" aria-label="Parameters Route">
+    <nav class="md-nav" aria-label="Parameters Routing">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#regex-route" class="md-nav__link">
-    Regex Route
+  <a href="#regex-routing" class="md-nav__link">
+    Regex Routing
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#group-route" class="md-nav__link">
-    Group Route
+  <a href="#pattern-routing" class="md-nav__link">
+    Pattern Routing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#group-routing" class="md-nav__link">
+    Group Routing
   </a>
   
 </li>
@@ -593,45 +607,78 @@
               
                 
                 
-                <h1 id="route">Route</h1>
-<p>Route is the core of web framework.</p>
-<h2 id="static-route">Static Route</h2>
+                <h1 id="routing">Routing</h1>
+<p>Routing is the core of web framework.</p>
+<h2 id="static-routing">Static Routing</h2>
 <p>Registering handler <code>hello</code> by specifying path, HTTP methods and middlewares.</p>
 <p><code>HttpGet</code> is the default HTTP methods. If you have registered a handler with <code>HttpGet</code>, <code>Prologue</code> will automatically register <code>HttpHead</code> for this handler.</p>
 <div class="codehilite"><pre><span></span><code><span class="c"># handler</span>
+<span class="kn">import</span> <span class="n">prologue</span>
+
+
 <span class="k">proc </span><span class="nf">hello</span><span class="o">*</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="p">{.</span><span class="n">async</span><span class="p">.}</span> <span class="o">=</span>
   <span class="n">resp</span> <span class="s">&quot;&lt;h1&gt;Hello, Prologue!&lt;/h1&gt;&quot;</span>
 
 <span class="n">app</span><span class="p">.</span><span class="n">addRoute</span><span class="p">(</span><span class="s">&quot;/hello&quot;</span><span class="p">,</span> <span class="n">hello</span><span class="p">)</span>
+<span class="c"># or</span>
+<span class="c"># app.get(&quot;/hello&quot;, hello)</span>
 </code></pre></div>
 
 <p>You can also use <code>seq[httpMetod]</code> to register the same handler but supports multiple HTTP methods.</p>
-<div class="codehilite"><pre><span></span><code><span class="c"># handler</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="n">prologue</span>
+
+
+<span class="c"># handler</span>
 <span class="k">proc </span><span class="nf">hello</span><span class="o">*</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="p">{.</span><span class="n">async</span><span class="p">.}</span> <span class="o">=</span>
   <span class="n">resp</span> <span class="s">&quot;&lt;h1&gt;Hello, Prologue!&lt;/h1&gt;&quot;</span>
 
 <span class="n">app</span><span class="p">.</span><span class="n">addRoute</span><span class="p">(</span><span class="s">&quot;/hello&quot;</span><span class="p">,</span> <span class="n">hello</span><span class="p">,</span> <span class="o">@[</span><span class="n">HttpGet</span><span class="p">,</span> <span class="n">HttpPost</span><span class="o">]</span><span class="p">)</span>
 </code></pre></div>
 
-<h2 id="parameters-route">Parameters Route</h2>
+<h2 id="parameters-routing">Parameters Routing</h2>
 <p><code>Prologue</code> supports parameters route. You can use <code>getPathParams</code> to get named arguments.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">proc </span><span class="nf">helloName</span><span class="o">*</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="p">{.</span><span class="n">async</span><span class="p">.}</span> <span class="o">=</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="n">prologue</span>
+
+
+<span class="k">proc </span><span class="nf">helloName</span><span class="o">*</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="p">{.</span><span class="n">async</span><span class="p">.}</span> <span class="o">=</span>
   <span class="n">resp</span> <span class="s">&quot;&lt;h1&gt;Hello, &quot;</span> <span class="o">&amp;</span> <span class="n">ctx</span><span class="p">.</span><span class="n">getPathParams</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;Prologue&quot;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="s">&quot;&lt;/h1&gt;&quot;</span>
 
 <span class="n">app</span><span class="p">.</span><span class="n">addRoute</span><span class="p">(</span><span class="s">&quot;/hello/{name}&quot;</span><span class="p">,</span> <span class="n">helloName</span><span class="p">,</span> <span class="n">HttpGet</span><span class="p">)</span>
 </code></pre></div>
 
-<h3 id="regex-route">Regex Route</h3>
+<h3 id="regex-routing">Regex Routing</h3>
 <p><code>Prologue</code> supports regex route.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">proc </span><span class="nf">articles</span><span class="o">*</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="p">{.</span><span class="n">async</span><span class="p">.}</span> <span class="o">=</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="n">prologue</span>
+
+
+<span class="k">proc </span><span class="nf">articles</span><span class="o">*</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="p">{.</span><span class="n">async</span><span class="p">.}</span> <span class="o">=</span>
   <span class="n">resp</span> <span class="o">$</span><span class="n">ctx</span><span class="p">.</span><span class="n">getPathParams</span><span class="p">(</span><span class="s">&quot;num&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
 <span class="n">app</span><span class="p">.</span><span class="n">addRoute</span><span class="p">(</span><span class="s">re&quot;/post(?P&lt;num&gt;[\d]+)&quot;</span><span class="p">,</span> <span class="n">articles</span><span class="p">,</span> <span class="n">HttpGet</span><span class="p">)</span>
 </code></pre></div>
 
-<h3 id="group-route">Group Route</h3>
+<h3 id="pattern-routing">Pattern Routing</h3>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="n">prologue</span>
+
+<span class="k">proc </span><span class="nf">hello</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="p">{.</span><span class="n">async</span><span class="p">.}</span> <span class="o">=</span>
+  <span class="n">resp</span> <span class="s">&quot;Hello World!&quot;</span>
+
+<span class="k">let</span> <span class="n">urlPatterns</span><span class="o">*</span> <span class="o">=</span> <span class="o">@[</span>
+  <span class="n">pattern</span><span class="p">(</span><span class="s">&quot;/hello&quot;</span><span class="p">,</span> <span class="n">hello</span><span class="p">)</span>
+<span class="o">]</span>
+
+<span class="kd">var</span> <span class="n">app</span> <span class="o">=</span> <span class="n">newApp</span><span class="p">()</span>
+
+<span class="n">app</span><span class="p">.</span><span class="n">addRoute</span><span class="p">(</span><span class="n">urls</span><span class="p">.</span><span class="n">urlPatterns</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+<span class="n">app</span><span class="p">.</span><span class="n">run</span><span class="p">()</span>
+</code></pre></div>
+
+<h3 id="group-routing">Group Routing</h3>
 <p><code>Prologue</code> supports group route. You can add arbitrary levels of route.</p>
-<div class="codehilite"><pre><span></span><code><span class="kd">var</span> <span class="n">app</span> <span class="o">=</span> <span class="n">newApp</span><span class="p">()</span>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="n">prologue</span>
+
+
+<span class="kd">var</span> <span class="n">app</span> <span class="o">=</span> <span class="n">newApp</span><span class="p">()</span>
 <span class="kd">var</span> <span class="n">base</span> <span class="o">=</span> <span class="n">newGroup</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="s">&quot;/apiv2&quot;</span><span class="p">,</span> <span class="o">@[]</span><span class="p">)</span>
 <span class="kd">var</span> <span class="n">level1</span> <span class="o">=</span> <span class="n">newGroup</span><span class="p">(</span><span class="n">app</span><span class="p">,</span><span class="s">&quot;/level1&quot;</span><span class="p">,</span> <span class="o">@[]</span><span class="p">,</span> <span class="n">base</span><span class="p">)</span>
 <span class="kd">var</span> <span class="n">level2</span> <span class="o">=</span> <span class="n">newGroup</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="s">&quot;/level2&quot;</span><span class="p">,</span> <span class="o">@[]</span><span class="p">,</span> <span class="n">level1</span><span class="p">)</span>
@@ -652,12 +699,6 @@
 <span class="n">base</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;/hi&quot;</span><span class="p">,</span> <span class="n">hi</span><span class="p">)</span>
 <span class="n">base</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="s">&quot;/home&quot;</span><span class="p">,</span> <span class="n">home</span><span class="p">)</span>
 
-<span class="c"># Or</span>
-<span class="c"># import std/with</span>
-<span class="c"># with base:</span>
-<span class="c">#   get(&quot;/hello&quot;, hello)</span>
-<span class="c">#   get(&quot;/hi&quot;, hi)</span>
-<span class="c">#   post(&quot;/home&quot;, home)</span>
 
 <span class="c"># /apiv2/level1/hello</span>
 <span class="n">level1</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;/hello&quot;</span><span class="p">,</span> <span class="n">hello</span><span class="p">)</span>
@@ -673,6 +714,82 @@
 <span class="n">level3</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;/hello&quot;</span><span class="p">,</span> <span class="n">hello</span><span class="p">)</span>
 <span class="n">level3</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;/hi&quot;</span><span class="p">,</span> <span class="n">hi</span><span class="p">)</span>
 <span class="n">level3</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="s">&quot;/home&quot;</span><span class="p">,</span> <span class="n">home</span><span class="p">)</span>
+</code></pre></div>
+
+<p><code>std/with</code> provides a more neat routing fashion:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="n">prologue</span>
+<span class="kn">import</span> <span class="n">std</span><span class="o">/</span><span class="n">with</span>
+
+
+<span class="kd">var</span> 
+  <span class="n">app</span> <span class="o">=</span> <span class="n">newApp</span><span class="p">()</span>
+  <span class="n">base</span> <span class="o">=</span> <span class="n">newGroup</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="s">&quot;/apiv2&quot;</span><span class="p">,</span> <span class="o">@[]</span><span class="p">)</span>
+  <span class="n">level1</span> <span class="o">=</span> <span class="n">newGroup</span><span class="p">(</span><span class="n">app</span><span class="p">,</span><span class="s">&quot;/level1&quot;</span><span class="p">,</span> <span class="o">@[]</span><span class="p">,</span> <span class="n">base</span><span class="p">)</span>
+  <span class="n">level2</span> <span class="o">=</span> <span class="n">newGroup</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="s">&quot;/level2&quot;</span><span class="p">,</span> <span class="o">@[]</span><span class="p">,</span> <span class="n">level1</span><span class="p">)</span>
+  <span class="n">level3</span> <span class="o">=</span> <span class="n">newGroup</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="s">&quot;/level3&quot;</span><span class="p">,</span> <span class="o">@[]</span><span class="p">,</span> <span class="n">level2</span><span class="p">)</span>
+
+
+<span class="k">proc </span><span class="nf">hello</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="p">{.</span><span class="n">async</span><span class="p">.}</span> <span class="o">=</span>
+  <span class="n">resp</span> <span class="s">&quot;Hello&quot;</span>
+
+<span class="k">proc </span><span class="nf">hi</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="p">{.</span><span class="n">async</span><span class="p">.}</span> <span class="o">=</span>
+  <span class="n">resp</span> <span class="s">&quot;Hi&quot;</span>
+
+<span class="k">proc </span><span class="nf">home</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="p">{.</span><span class="n">async</span><span class="p">.}</span> <span class="o">=</span>
+  <span class="n">resp</span> <span class="s">&quot;Home&quot;</span>
+
+
+<span class="n">with</span> <span class="n">base</span><span class="p">:</span>
+  <span class="n">get</span><span class="p">(</span><span class="s">&quot;/hello&quot;</span><span class="p">,</span> <span class="n">hello</span><span class="p">)</span>
+  <span class="n">get</span><span class="p">(</span><span class="s">&quot;/hi&quot;</span><span class="p">,</span> <span class="n">hi</span><span class="p">)</span>
+  <span class="n">post</span><span class="p">(</span><span class="s">&quot;/home&quot;</span><span class="p">,</span> <span class="n">home</span><span class="p">)</span>
+
+<span class="c"># /apiv2/level1/hello</span>
+<span class="n">with</span> <span class="n">level1</span><span class="p">:</span>
+  <span class="n">get</span><span class="p">(</span><span class="s">&quot;/hello&quot;</span><span class="p">,</span> <span class="n">hello</span><span class="p">)</span>
+  <span class="n">get</span><span class="p">(</span><span class="s">&quot;/hi&quot;</span><span class="p">,</span> <span class="n">hi</span><span class="p">)</span>
+  <span class="n">post</span><span class="p">(</span><span class="s">&quot;/home&quot;</span><span class="p">,</span> <span class="n">home</span><span class="p">)</span>
+
+<span class="c"># /apiv2/level1/level2/hello</span>
+<span class="n">with</span> <span class="n">level2</span><span class="p">:</span>
+  <span class="n">get</span><span class="p">(</span><span class="s">&quot;/hello&quot;</span><span class="p">,</span> <span class="n">hello</span><span class="p">)</span>
+  <span class="n">get</span><span class="p">(</span><span class="s">&quot;/hi&quot;</span><span class="p">,</span> <span class="n">hi</span><span class="p">)</span>
+  <span class="n">post</span><span class="p">(</span><span class="s">&quot;/home&quot;</span><span class="p">,</span> <span class="n">home</span><span class="p">)</span>
+
+<span class="c"># /apiv2/level1/level2/level3/hello</span>
+<span class="n">with</span> <span class="n">level3</span><span class="p">:</span>
+  <span class="n">get</span><span class="p">(</span><span class="s">&quot;/hello&quot;</span><span class="p">,</span> <span class="n">hello</span><span class="p">)</span>
+  <span class="n">get</span><span class="p">(</span><span class="s">&quot;/hi&quot;</span><span class="p">,</span> <span class="n">hi</span><span class="p">)</span>
+  <span class="n">post</span><span class="p">(</span><span class="s">&quot;/home&quot;</span><span class="p">,</span> <span class="n">home</span><span class="p">)</span>
+</code></pre></div>
+
+<p><code>pattern routing</code> also supports grouping.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="n">prologue</span>
+
+
+<span class="kd">var</span> <span class="n">app</span> <span class="o">=</span> <span class="n">newApp</span><span class="p">()</span>
+
+<span class="kd">var</span> <span class="n">base</span> <span class="o">=</span> <span class="n">newGroup</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="s">&quot;/apiv2&quot;</span><span class="p">,</span> <span class="o">@[]</span><span class="p">)</span>
+<span class="kd">var</span> <span class="n">level1</span> <span class="o">=</span> <span class="n">newGroup</span><span class="p">(</span><span class="n">app</span><span class="p">,</span><span class="s">&quot;/level1&quot;</span><span class="p">,</span> <span class="o">@[]</span><span class="p">,</span> <span class="n">base</span><span class="p">)</span>
+<span class="kd">var</span> <span class="n">level2</span> <span class="o">=</span> <span class="n">newGroup</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="s">&quot;/level2&quot;</span><span class="p">,</span> <span class="o">@[]</span><span class="p">,</span> <span class="n">level1</span><span class="p">)</span>
+
+
+<span class="k">proc </span><span class="nf">hello</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="p">{.</span><span class="n">async</span><span class="p">.}</span> <span class="o">=</span>
+  <span class="n">resp</span> <span class="s">&quot;Hello&quot;</span>
+
+<span class="k">proc </span><span class="nf">hi</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="p">{.</span><span class="n">async</span><span class="p">.}</span> <span class="o">=</span>
+  <span class="n">resp</span> <span class="s">&quot;Hi&quot;</span>
+
+<span class="k">proc </span><span class="nf">home</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="p">{.</span><span class="n">async</span><span class="p">.}</span> <span class="o">=</span>
+  <span class="n">resp</span> <span class="s">&quot;Home&quot;</span>
+
+
+<span class="k">let</span>
+  <span class="n">urlpattern1</span> <span class="o">=</span> <span class="o">@[</span><span class="n">pattern</span><span class="p">(</span><span class="s">&quot;/hello&quot;</span><span class="p">,</span> <span class="n">hello</span><span class="p">),</span> <span class="n">pattern</span><span class="p">(</span><span class="s">&quot;/hi&quot;</span><span class="p">,</span> <span class="n">hi</span><span class="p">)</span><span class="o">]</span>
+  <span class="n">urlpattern2</span> <span class="o">=</span> <span class="o">@[</span><span class="n">pattern</span><span class="p">(</span><span class="s">&quot;/home&quot;</span><span class="p">,</span> <span class="n">home</span><span class="p">)</span><span class="o">]</span>
+  <span class="n">tab</span> <span class="o">=</span> <span class="p">{</span><span class="n">level1</span><span class="p">:</span> <span class="n">urlpattern1</span><span class="p">,</span> <span class="n">level2</span><span class="p">:</span> <span class="n">urlpattern2</span><span class="p">}</span>
+
+<span class="n">app</span><span class="p">.</span><span class="n">addGroup</span><span class="p">(</span><span class="n">tab</span><span class="p">)</span>
 </code></pre></div>
                 
               
