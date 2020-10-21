@@ -510,6 +510,27 @@
   <span class="n">UserContext</span> <span class="o">=</span> <span class="k">ref</span> <span class="k">object</span> <span class="k">of</span> <span class="n">Context</span>
     <span class="n">data</span><span class="p">:</span> <span class="kt">int</span>
 
+
+<span class="k">proc </span><span class="nf">hello</span><span class="o">*</span><span class="p">(</span><span class="n">ctx</span><span class="p">:</span> <span class="n">Context</span><span class="p">)</span> <span class="p">{.</span><span class="n">async</span><span class="p">.}</span> <span class="o">=</span>
+  <span class="n">inc</span> <span class="n">ctx</span><span class="p">.</span><span class="n">UserContext</span><span class="p">.</span><span class="n">data</span>
+  <span class="n">echo</span> <span class="s">fmt&quot;{ctx.UserContext.data = }&quot;</span>
+  <span class="n">resp</span> <span class="s">&quot;&lt;h1&gt;Hello, Prologue!&lt;/h1&gt;&quot;</span>
+
+<span class="kd">var</span> <span class="n">app</span> <span class="o">=</span> <span class="n">newApp</span><span class="p">()</span>
+<span class="n">app</span><span class="p">.</span><span class="n">use</span><span class="p">(</span><span class="n">extendContextMiddleWare</span><span class="p">(</span><span class="n">UserContext</span><span class="p">))</span>
+<span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span> <span class="n">hello</span><span class="p">)</span>
+<span class="n">app</span><span class="p">.</span><span class="n">run</span><span class="p">()</span>
+</code></pre></div>
+
+<p>You may want to write a middleware:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="n">prologue</span>
+<span class="kn">import</span> <span class="n">strformat</span>
+
+
+<span class="k">type</span>
+  <span class="n">UserContext</span> <span class="o">=</span> <span class="k">ref</span> <span class="k">object</span> <span class="k">of</span> <span class="n">Context</span>
+    <span class="n">data</span><span class="p">:</span> <span class="kt">int</span>
+
   <span class="n">ExperimentContext</span> <span class="o">=</span> <span class="k">concept</span> <span class="n">ctx</span>
     <span class="n">ctx</span> <span class="ow">is</span> <span class="n">Context</span>
     <span class="n">ctx</span><span class="p">.</span><span class="n">data</span> <span class="ow">is</span> <span class="kt">int</span>
