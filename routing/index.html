@@ -670,6 +670,7 @@
 <span class="n">app</span><span class="p">.</span><span class="n">addRoute</span><span class="p">(</span><span class="s">&quot;/hello&quot;</span><span class="p">,</span> <span class="n">hello</span><span class="p">)</span>
 <span class="c"># or</span>
 <span class="c"># app.get(&quot;/hello&quot;, hello)</span>
+<span class="n">app</span><span class="p">.</span><span class="n">run</span><span class="p">()</span>
 </code></pre></div>
 
 <p>You can also use <code>seq[httpMetod]</code> to register the same handler but supports multiple HTTP methods.</p>
@@ -682,6 +683,7 @@
 
 <span class="kd">var</span> <span class="n">app</span> <span class="o">=</span> <span class="n">newApp</span><span class="p">()</span>
 <span class="n">app</span><span class="p">.</span><span class="n">addRoute</span><span class="p">(</span><span class="s">&quot;/hello&quot;</span><span class="p">,</span> <span class="n">hello</span><span class="p">,</span> <span class="o">@[</span><span class="n">HttpGet</span><span class="p">,</span> <span class="n">HttpPost</span><span class="o">]</span><span class="p">)</span>
+<span class="n">app</span><span class="p">.</span><span class="n">run</span><span class="p">()</span>
 </code></pre></div>
 
 <h2 id="parameters-routing">Parameters Routing</h2>
@@ -695,6 +697,7 @@
 
 <span class="kd">var</span> <span class="n">app</span> <span class="o">=</span> <span class="n">newApp</span><span class="p">()</span>
 <span class="n">app</span><span class="p">.</span><span class="n">addRoute</span><span class="p">(</span><span class="s">&quot;/hello/{name}&quot;</span><span class="p">,</span> <span class="n">hello</span><span class="p">,</span> <span class="n">HttpGet</span><span class="p">)</span>
+<span class="n">app</span><span class="p">.</span><span class="n">run</span><span class="p">()</span>
 </code></pre></div>
 
 <h3 id="wildcard">Wildcard</h3>
@@ -709,6 +712,7 @@
 <span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;/static/*&quot;</span><span class="p">,</span> <span class="n">hello</span><span class="p">)</span>
 <span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;/*/static&quot;</span><span class="p">,</span> <span class="n">hello</span><span class="p">)</span>
 <span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;/static/templates/{path}/*&quot;</span><span class="p">,</span> <span class="n">hello</span><span class="p">)</span>
+<span class="n">app</span><span class="p">.</span><span class="n">run</span><span class="p">()</span>
 </code></pre></div>
 
 <h3 id="greedy">Greedy</h3>
@@ -723,6 +727,7 @@
 <span class="kd">var</span> <span class="n">app</span> <span class="o">=</span> <span class="n">newApp</span><span class="p">()</span>
 <span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;/test/{param}$&quot;</span><span class="p">,</span> <span class="n">hello</span><span class="p">)</span>
 <span class="n">app</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;/test/static/*$&quot;</span><span class="p">,</span> <span class="n">hello</span><span class="p">)</span>
+<span class="n">app</span><span class="p">.</span><span class="n">run</span><span class="p">()</span>
 </code></pre></div>
 
 <h2 id="regex-routing">Regex Routing</h2>
@@ -735,6 +740,7 @@
 
 <span class="kd">var</span> <span class="n">app</span> <span class="o">=</span> <span class="n">newApp</span><span class="p">()</span>
 <span class="n">app</span><span class="p">.</span><span class="n">addRoute</span><span class="p">(</span><span class="s">re&quot;/post(?P&lt;num&gt;[\d]+)&quot;</span><span class="p">,</span> <span class="n">articles</span><span class="p">,</span> <span class="n">HttpGet</span><span class="p">)</span>
+<span class="n">app</span><span class="p">.</span><span class="n">run</span><span class="p">()</span>
 </code></pre></div>
 
 <h2 id="pattern-routing">Pattern Routing</h2>
@@ -750,6 +756,7 @@
 <span class="kd">var</span> <span class="n">app</span> <span class="o">=</span> <span class="n">newApp</span><span class="p">()</span>
 
 <span class="n">app</span><span class="p">.</span><span class="n">addRoute</span><span class="p">(</span><span class="n">urlPatterns</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+<span class="n">app</span><span class="p">.</span><span class="n">run</span><span class="p">()</span>
 </code></pre></div>
 
 <h2 id="group-routing">Group Routing</h2>
@@ -794,6 +801,8 @@
 <span class="n">level3</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;/hello&quot;</span><span class="p">,</span> <span class="n">hello</span><span class="p">)</span>
 <span class="n">level3</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">&quot;/hi&quot;</span><span class="p">,</span> <span class="n">hi</span><span class="p">)</span>
 <span class="n">level3</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="s">&quot;/home&quot;</span><span class="p">,</span> <span class="n">home</span><span class="p">)</span>
+
+<span class="n">app</span><span class="p">.</span><span class="n">run</span><span class="p">()</span>
 </code></pre></div>
 
 <p><code>std/with</code> provides a more neat routing fashion:</p>
@@ -841,6 +850,8 @@
   <span class="n">get</span><span class="p">(</span><span class="s">&quot;/hello&quot;</span><span class="p">,</span> <span class="n">hello</span><span class="p">)</span>
   <span class="n">get</span><span class="p">(</span><span class="s">&quot;/hi&quot;</span><span class="p">,</span> <span class="n">hi</span><span class="p">)</span>
   <span class="n">post</span><span class="p">(</span><span class="s">&quot;/home&quot;</span><span class="p">,</span> <span class="n">home</span><span class="p">)</span>
+
+<span class="n">app</span><span class="p">.</span><span class="n">run</span><span class="p">()</span>
 </code></pre></div>
 
 <p><code>pattern routing</code> also supports grouping.</p>
@@ -870,6 +881,7 @@
   <span class="n">tab</span> <span class="o">=</span> <span class="p">{</span><span class="n">level1</span><span class="p">:</span> <span class="n">urlpattern1</span><span class="p">,</span> <span class="n">level2</span><span class="p">:</span> <span class="n">urlpattern2</span><span class="p">}</span>
 
 <span class="n">app</span><span class="p">.</span><span class="n">addGroup</span><span class="p">(</span><span class="n">tab</span><span class="p">)</span>
+<span class="n">app</span><span class="p">.</span><span class="n">run</span><span class="p">()</span>
 </code></pre></div>
                 
               
